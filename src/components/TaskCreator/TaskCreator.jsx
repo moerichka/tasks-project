@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 
 import { createTask } from "../../store/tasksSlice";
 
@@ -7,14 +8,28 @@ import s from "./TaskCreator.module.scss";
 
 function TaskCreator() {
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [header, setHeader] = useState("");
   const [note, setNote] = useState("");
 
   const submit = (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    dispatch(createTask({ title: header, text: note }));
+      // throw new Error("Couldn't create new task!")
+
+      dispatch(createTask({ title: header, text: note }));
+      enqueueSnackbar({
+        message: "Task has been created!",
+        variant: "success",
+      });
+    } catch (error) {
+      enqueueSnackbar({
+        message: error.message,
+        variant: "error"
+      })
+    }
   };
 
   return (
