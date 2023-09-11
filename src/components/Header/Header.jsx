@@ -1,16 +1,27 @@
 import React from "react";
-
-import s from './Header.module.scss'
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function Header({ countIsDone, countInProcess }) {
-    return (
-        <div className={s.container}>
-            <Link className={s.h2} to="/">Keeper</Link>
-            <Link className={s.h2} to="/dashboard">Dashboard</Link>
-            <h2 className={s.h2}>Выполнено: {countIsDone}, В процессе: {countInProcess}</h2>
-        </div>
-    )
+import s from "./Header.module.scss";
+
+function Header() {
+  const { completedTasksCount, processedTasksCount } = useSelector(
+    (state) => state.tasks
+  );
+
+  return (
+    <div className={s.container}>
+      <Link className={s.h2} to="/">
+        Keeper
+      </Link>
+      <Link className={s.h2} to="/dashboard">
+        Dashboard
+      </Link>
+      <h2 className={s.h2}>
+        Выполнено: {completedTasksCount}, В процессе: {processedTasksCount}
+      </h2>
+    </div>
+  );
 }
 
 export default Header;

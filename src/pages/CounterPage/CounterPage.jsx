@@ -10,7 +10,7 @@ function CounterPage() {
   const { count } = useSelector((state) => state.counter); // getter
 
   const handleIncrement = () => {
-    dispatch(increment());
+    dispatch({payload: undefined, type: "counter/increment"});
   };
 
   const handleDecrement = () => {
@@ -18,8 +18,8 @@ function CounterPage() {
   };
 
   const handleAddByTen = () => {
-    dispatch(addBy(10))
-  }
+    dispatch(addBy(10));
+  };
 
   return (
     <div>

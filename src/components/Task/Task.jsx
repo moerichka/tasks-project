@@ -1,14 +1,16 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
+import { completeTask } from "../../store/tasksSlice";
 
 import s from "./Task.module.scss";
 
-function Task({ id, title, text, date, isDone, tasks, setTasks, refreshTaskData }) {
+function Task({ id, title, text, date, isDone }) {
+  const dispatch = useDispatch();
+
   const checkIsDone = (e) => {
     e.preventDefault();
-    tasks[id].isDone = !tasks[id].isDone
-    setTasks(tasks);
-    refreshTaskData();
-    // console.log(task);
+    dispatch(completeTask(id));
   };
 
   return (

@@ -1,27 +1,20 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { createTask } from "../../store/tasksSlice";
 
 import s from "./TaskCreator.module.scss";
 
-function TaskCreator({ refreshTaskData, setTasks, tasks }) {
+function TaskCreator() {
+  const dispatch = useDispatch();
+
   const [header, setHeader] = useState("");
   const [note, setNote] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
 
-    // new Date().toISOString().slice(0, 10)
-
-    const newTask = {
-      id: tasks.length,
-      title: header,
-      text: note,
-      date: new Date().toLocaleDateString(),
-      isDone: false,
-    };
-
-    // console.log(newTask);
-    setTasks((prev) => [ ...prev, newTask]);
-    refreshTaskData();
+    dispatch(createTask({ title: header, text: note }));
   };
 
   return (
